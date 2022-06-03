@@ -24,3 +24,37 @@ const backSpaceCompare = (S, T) => {
     }
   }
 };
+
+const longestSubstringwithoutRepeatingCharacters = S => {
+  let max = 0;
+  let start = 0;
+  let end = 0;
+  let map = new Map();
+  while (end < S.length) {
+    if (map.has(S[end])) {
+      start = Math.max(map.get(S[end]) + 1, start);
+    }
+    map.set(S[end], end);
+    max = Math.max(max, end - start + 1);
+    end++;
+  }
+  return max;
+};
+
+const palindromePairs = words => {
+  let reverseStr = [];
+  let result = [];
+  for (let i = 0; i < words.length; i++) {
+    reverseStr.push(words[i].split('').reverse().join(''));
+  }
+  for (let i = 0; i < words.length; i++) {
+    for (let j = 0; j < words.length; j++) {
+      if (i !== j) {
+        if (words[i] + words[j] === reverseStr[j]) {
+          result.push([i, j]);
+        }
+      }
+    }
+  }
+  return result;
+};
